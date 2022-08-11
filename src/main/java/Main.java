@@ -1,12 +1,10 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.*;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-import org.apache.juneau.json.annotation.Json;
 import org.apache.juneau.serializer.SerializeException;
 import org.apache.juneau.xml.XmlSerializer;
 import org.json.simple.JSONArray;
@@ -32,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+
+
     public static void main(String[] args) {
         String[] columnMapping = {"id", "firstName", "lastName", "country", "age"};
 
@@ -62,7 +62,7 @@ public class Main {
         }
     }
 
-    private static List<Employee> parseXML(String fileName) {
+    public static List<Employee> parseXML(String fileName) {
 
         List<Employee> employee = new ArrayList<>();
 
@@ -148,7 +148,7 @@ public class Main {
     public static String listToJson(List<Employee> list) {
 
         GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
+        Gson gson = builder.setPrettyPrinting().create();
         Type listType = new TypeToken<ArrayList<Employee>>() {
         }.getType();
         return gson.toJson(list, listType);
@@ -231,7 +231,7 @@ public class Main {
         return document;
     }
 
-    private static String readString(String fileName) {
+    public static String readString(String fileName) {
         String s = "";
         String line = "";
 
@@ -245,7 +245,7 @@ public class Main {
         return s;
     }
 
-    private static List<Employee> jsonToList(String json) {
+    public static List<Employee> jsonToList(String json) {
 
         List<Employee> employeeList = new ArrayList<>();
         long id = 0;
